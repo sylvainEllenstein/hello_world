@@ -18,7 +18,7 @@
     n = int(input()) #longueur
     m = int(input()) #largeur
     plateau = [list(map(int, input().split(" "))) for _ in range(n)]
-   tous_chemins = [] for _ in range (0, m)
+    tous_chemins = [] for _ in range (0, m)
     
     def cases_suivante(x, largeur):
         #retourne les cases suivantes d'un objet chemin 
@@ -33,11 +33,12 @@
         pass
     
     class chemin:
-        def __init__(self, cases):
+        def __init__(self, c):
             self.poids = 0
-            self.cases = []
+            self.cases = [i for i in c] 
         def copier(self, nouvelle_case):
         #copie le chemin self et créé un nouveau avec le nouvelle_case en plus
+            ch_ = chemin(self.cases)
             pass
         def meilleureCase(liste):
         #calcule la prochaine meilleure case d'un objet chemin
