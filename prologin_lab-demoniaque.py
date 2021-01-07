@@ -29,13 +29,14 @@
     def meilleurChemin(tous_chemins):
         #donne le(s) meilleur(s) chemin(s) actuel(s) dans tous les objets chemin
         #entrée : tous_chemins, qui contient tous les objets chemin
-        #sortie : ??? -> places des chemins dans la liste
+        #sortie : [place des chemins dans tou_chemins]
         pass
     
     class chemin:
         def __init__(self, c):
-            self.poids = 0
-            self.cases = [i for i in c] 
+            self.cases = c
+            self.poids = sum(c)
+            
         def copier(self, nouvelle_case):
         #copie le chemin self et créé un nouveau avec le nouvelle_case en plus
             ch_ = chemin(self.cases)
@@ -60,5 +61,3 @@
     
         
 labyrinthe_demoniaque()
-
-
