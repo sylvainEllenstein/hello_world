@@ -19,7 +19,7 @@
     m = int(input()) #largeur
     plateau = [list(map(int, input().split(" "))) for _ in range(n)]
 	
-    liste_chemins = [_] for _ in range (0, m) #décrit les chemins étudiés : list(list(int)) -> abscisses des cases des chemins
+    liste_chemins = [[_] for _ in range (0, m)] #décrit les chemins étudiés : list(list(int)) -> abscisses des cases des chemins
 	liste_poids = [plateau[0][i] for i in plateau[0]] #poid qui correspondent aux chemins dans liste_chemins
     
 	def poids(x_array, plateau):
@@ -28,7 +28,7 @@
 		return sum([plateau[i][x_array[i]] for i in range(len(x_array))]
 				   
     def cases_suivantes(x, largeur):
-        #retourne les cases suivantes d'un objet chemin 
+        #retourne les cases suivantes d'un chemin 
         if x == 0: return [0, 1]
     	elif x == largeur - 1: return [largeur - 1, largeur]
         return [x - 1, x, x + 1]
@@ -38,12 +38,11 @@
         #type(out) : list(int) -> x des chemins
         return [i for i,x in enumerate(poids) if x == min(poids)]
     
-	def meilleureCase(x_array,plateau):
+	def meilleureCase(x_array,plateau, m):
     	#calcule la prochaine meilleure case d'un objet chemin
         #type(out) : list(int) -> x
-		return [plateau[len(x_array)][i] for i in cases_suivantes(x_array[::-1][0]]
+		return list(i pateau[len(x_array)][i] for i in cases_suivantes(x_array[::-1][0], m))
 
-				   
 	def nouveauChemin(chemin_init, case):
 		chemin_init.append(case)
 		liste_chemins.append(chemin_init)
@@ -51,8 +50,8 @@
 	
     def main(chemins_possibles, plateau):        
         #TODO : boucle qui prend le plus court objet chemin, le continue et actualise sa longueur
-        #la boucle coupe si le plus court chemin est plus grand que l'âme du visiteur, et coupe les chemins déjà trop grands
-        mainloop = (() or ()) and (meilleurChemin(liste_poids) <= a): 
+        #la boucle coupe si le plus court chemin est plus grand que l'âme du visiteur, et coupe les chemins créés déjà trop grands
+        mainloop = (max[(len(i)) for i in liste_chemins] < n) or () and (meilleurChemin(liste_poids) <= a): 
 		#tant que le plus court chemin n'est pas trop grand + aucun chemin chemin n'atteint le bord ou si le chemin qui a atteint le bord n'est pas le plus court
 		while mainloop:
 			pass
