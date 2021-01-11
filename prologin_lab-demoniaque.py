@@ -34,14 +34,16 @@
         return [x - 1, x, x + 1]
     
     def meilleurChemin(poids):
-        #donne le(s) meilleur(s) chemin(s) actuel(s) dans tous les objets chemin
-        #type(out) : list(int) -> x des chemins
+        #donne le(s) meilleur(s) chemin(s) actuel(s) dans tous les chemins
+        #type(out) : list(int) -> place des chemins dans liste_chemins
         return [i for i,x in enumerate(poids) if x == min(poids)]
     
 	def meilleureCase(x_array,plateau, m):
     	#calcule la prochaine meilleure case d'un objet chemin
         #type(out) : list(int) -> x
-		return list(i pateau[len(x_array)][i] for i in cases_suivantes(x_array[::-1][0], m))
+		suivantes = cases_suivantes(x_array[::-1][0], m)
+		valeur = lambda x : plateau[len(x_array)][x]
+		meilleures = [i for i in suivantes if valeur[i] == min(list(valeur(x) for x in suivantes))]
 
 	def nouveauChemin(chemin_init, case):
 		chemin_init.append(case)
@@ -51,9 +53,16 @@
     def main(chemins_possibles, plateau):        
         #TODO : boucle qui prend le plus court objet chemin, le continue et actualise sa longueur
         #la boucle coupe si le plus court chemin est plus grand que l'âme du visiteur, et coupe les chemins créés déjà trop grands
-        mainloop = (max[(len(i)) for i in liste_chemins] < n) or () and (meilleurChemin(liste_poids) <= a): 
-		#tant que le plus court chemin n'est pas trop grand + aucun chemin chemin n'atteint le bord ou si le chemin qui a atteint le bord n'est pas le plus court
+		
+        mainloop = ((max[(len(i)) for i in liste_chemins] < n) or ( #si le chemin qui a atteint le bord n'est pas le plus court
+		)) and (meilleurChemin(liste_poids) <= a) 
+		#tant que le plus court chemin n'est pas trop grand ------> si liste_chemins == []
+		#aucun chemin chemin n'atteint le bord ou si le chemin qui a atteint le bord n'est pas le plus court
+		
 		while mainloop:
+			#continue un chemin SI : plus court ET non-fini
+			# + actualiser les pooids
+			# + couper les chemins si déjà trop grands (créer les chemins un par un)
 			pass
 			mainloop = False
 		
