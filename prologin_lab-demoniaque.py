@@ -45,15 +45,31 @@
 		valeur = lambda x : plateau[len(x_array)][x]
 		meilleures = [i for i in suivantes if valeur[i] == min(list(valeur(x) for x in suivantes))]
 
-	def nouveauChemin(chemin_init, case):
+	def copieChemin(chemin_init, case):
+		#copie un chemin existant en rajoutant la case 'case'
 		chemin_init.append(case)
+		global liste_chemins
 		liste_chemins.append(chemin_init)
 		liste_poids.append(poids(chemin_init))
 	
-    def main(chemins_possibles, plateau):        
+	def nouveauxChemins(x_array):
+		#entrée : le chemin à continuer (choisi par meilleurChemin dans le main)
+		# -> continue / créé de nouveaux x_arrays (avec copieChemin) si nécessaire
+		# -> coupe les chemins créés trop grands
+		global a #ame du visiteur
+		
+				   
+    def main():      
         #TODO : boucle qui prend le plus court objet chemin, le continue et actualise sa longueur
         #la boucle coupe si le plus court chemin est plus grand que l'âme du visiteur, et coupe les chemins créés déjà trop grands
-		
+		global liste_chemins
+		global a
+		global m
+		global n
+		global plateau
+		global liste_poids
+				   
+				   
         mainloop = ((max[(len(i)) for i in liste_chemins] < n) or ( #si le chemin qui a atteint le bord n'est pas le plus court
 		)) and (meilleurChemin(liste_poids) <= a) 
 		#tant que le plus court chemin n'est pas trop grand ------> si liste_chemins == []
@@ -66,9 +82,7 @@
 			pass
 			mainloop = False
 		
-		
-		
-        pass
+	main()
     
         
 labyrinthe_demoniaque()
