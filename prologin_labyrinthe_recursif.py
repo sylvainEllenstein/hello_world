@@ -28,6 +28,10 @@ def cases_suivantes(x):
       elif x == m - 1: return [m - 1, m]
       return [x - 1, x, x + 1]
 
+def meilleure_case(x_array):
+	suivantes = cases_suivantes(x_array[::-1][0])
+	valeurs = [i for i in suivantes if i == min()]
+
 def chemins_rec(x_array):
 	"""
 	Chemins en récursif à partir de la première case
@@ -38,10 +42,11 @@ def chemins_rec(x_array):
 	if len(x_array) == m: #si chemin terminé
 		yield x_array
 
-	#sinon : 
+	else : #sinon : 
+		if 
 	# -> regarde les cases_suivantes en fonctin de la dernière case du x_array
 	# -> si la plus petite valeur fait dépasser le seuil a : abandon du x_array, pas de récursion dessus
-	# -> sinon : on choisit les plus petites et on fait une récusrion dessus, avec un return 
+	# -> sinon : on choisit les plus petites et on fait une récursion dessus, avec un return 
 
 ###########  FONCTIONS SUPPLEMENTAIRES NECESSAIRES  #############
 
