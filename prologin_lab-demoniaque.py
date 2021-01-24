@@ -1,5 +1,7 @@
 from sys import stdin, stdout
 
+stdin.readline = input
+
 """
 :param a: ame du visiteur
 :type a: int
@@ -29,9 +31,10 @@ def display(x_array):
     stdout.write(f"{x_array[0]}")
     for i in x_array[1:]:
         stdout.write(f" {i}")
-        stdout.write("\n")
+    stdout.write("\n")
 
 def poids(x_array):
+	#poids d'un chemin
     return sum([plateau[i][x_array[i]] for i in range(len(x_array))])
 				   
 def cases_suivantes(x):
@@ -41,43 +44,39 @@ def cases_suivantes(x):
     return [x - 1, x, x + 1]
 
 def meilleurChemin():
-    #donne le(s) meilleur(s) chemin(s) actuel(s) dans tous les chemins
-    return [i for i,x in enumerate(liste_poids) if x == min(liste_poids)]
+    #donne le meilleur chemin actuel dans tous les chemins
+    #si plusieurs ont le même poids : un seul sera sélectionné (premier) mais ne change rien à priori
+    return liste_poids.index(min(liste_poids))
 
-def meilleureCase(x_array):
- 	#calcule les prochaines meilleures cases d'un chemin
-    suivantes = cases_suivantes(x_array[::-1][0])
-    valeurs = [plateau[len(x_array)][i] for i in suivantes] 
-    return [suivantes[i] for i in range (0, len(suivantes)) if valeurs[i] == min(valeurs)]
-
-
-def copieChemin(chemin_init, case):
-    # copie un chemin existant (x_array) en rajoutant la case 'case'
-    # l'envoye dans la bonne liste, si le chemin est terminé ou non
-    # actualise les poids si un chemin n'est pas terminé
+def nouveauxChemins(x_array):
+    #entrée : un chemin (x_array)
+    # -> visite tous les chemins suivants qui ne dépassent pas le seuil 'âme du visiteur'
     global solutions
     global liste_poids
     global liste_chemins
 
+    if len(x_array) == n - 1: #si le chemin est sur le point de se terminer
+    	for i in cases_suivantes(x_array[::-1][0]): # TOUTES les cases suivantes
+    		if poids(x_array) + plateau[len(x_array)][i] <= a: # si le poids du chemin est assez bas
+    			solutions.append(x_array + [i]) # on ajoute le chemin aux solutions
 
-
-def nouveauxChemins(x_array):
-    #entrée : un chemin (x_array)
-    # -> créé avec copieChemin() les nouveaux x_arrays, directement dans les listes solutions ou liste_chemins
-    # remet le chemin initial si longueur < n - 1
-
-    #revoir condition pour remettre le x_array dans liste_chemins
+    else :
+    	for i in cases_suivantes(x_array[::-1][0]): 
+    		if poids(x_array) + plateau[len(x_array)][i] < a:
+    			liste_chemins.append(x_array + [i])
+    			liste_poids.append(poids(x_array) + plateau[len(x_array)][i])
 
 
 end = (liste_chemins == [])
 
 while not end:
-    #prendre le plus court chemin, le continuer (ne pas supprimer l'original) -> OU suppresion dans poids et dans chemins
-    for x in meilleurChemin(): #type : list[int]
+    try :
+        x = meilleurChemin()
         del(liste_poids[x])
         nouveauxChemins(liste_chemins.pop(x))
-
-
+    except :
+        end = True
+        
 if solutions == []:
     stdout.write("IMPOSSIBLE")	
 else : # si il y a des solutions
@@ -86,19 +85,8 @@ else : # si il y a des solutions
     	stdout.write("ou\n")
     	display(chemin)
 
-"""
-12
-4
-4
-4 4 3 4
-3 5 5 4
-2 4 5 3
-4 3 2 5
-
-5
-3
-3
-1 2 3
-4 5 6
-7 8 9
-"""
+#BILAN:
+# Après tentatives en récursif(l'affichage était rigoureusement identique mais marquait pourtant une erreur... ???), essai en itératif
+# l'affichage du programme semble correspondre à celui demandé sur Prologin
+#PROBLEMES / Sources d'erreur possibles :
+# -> trop lent/ utilisation abusive de mémoire
