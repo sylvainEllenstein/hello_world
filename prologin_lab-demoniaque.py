@@ -59,32 +59,15 @@ def copieChemin(chemin_init, case):
     global liste_poids
     global liste_chemins
 
-    chemin_init.append(case)
-    if len(chemin_init) == n:
-    	solutions.append(chemin_init)
-    	print(chemin_init, case)
-    else :
-    	liste_chemins.append(chemin_init)
-    	liste_poids.append(poids(chemin_init))
+
 
 def nouveauxChemins(x_array):
     #entrée : un chemin (x_array)
     # -> créé avec copieChemin() les nouveaux x_arrays, directement dans les listes solutions ou liste_chemins
     # remet le chemin initial si longueur < n - 1
-    #type(out) : None
-    if len(x_array) < n - 1:
-        print(f"again added array : {x_array}")
-        liste_chemins.append(x_array)
-        liste_poids.append(poids(x_array))
-    
 
-    try :
-        cases = meilleureCase(x_array)
-    except :
-        print(x_array)
-    for case in cases: 
-        if poids(x_array) + plateau[len(x_array)][case] <= a:
-            copieChemin(x_array, case)
+    #revoir condition pour remettre le x_array dans liste_chemins
+
 
 end = (liste_chemins == [])
 
